@@ -1,6 +1,6 @@
 # UTN25Cuatri2_132 :rooster:
 
-# JavaScript :rooster:
+# JavaScript :notebook:
 
 ## JavaScript II / Control de flujo, estructuras de control, condicionales y bucles I
 ```js
