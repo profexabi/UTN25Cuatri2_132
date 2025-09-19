@@ -10,6 +10,16 @@
 
 2. [Portfolio fullstack](https://www.onlinegdb.com/5MEjTtIRL)
 
+
+---
+
+
+## JavaScript V / Objetos, clases y objetos globales. Almacenamiento persistente, iteracion en arrays, iteracion en objetos e iteracion en arrays de objetos
+
+```js
+
+```
+
 ---
 
 
@@ -1110,10 +1120,6 @@ console.log(e);
 ---
 
 ## JavaScript VI / Manipulacion del DOM en JavaScript y Eventos
-
----
-
-## JavaScript V / Objetos, clases y objetos globales. Almacenamiento persistente, iteracion en arrays, iteracion en objetos e iteracion en arrays de objetos
 
 ---
 

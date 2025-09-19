@@ -1,253 +1,337 @@
-/* =======================
-    Arrays y objetos
-==========================
-En JS los arrays y objetos son estructuras de datos fundamentales.
-Los arrays se utilizan para almacenar una lista ORDENADA de elementos.
-Los objetos son ideales para almacenar datos con propiedades clave-valor.
+/* ====================================
+    Objetos Globales en JavaScript
+=======================================
+
+El entorno de ejecucion es el lugar donde podemos correr JavaScript. Podemos correrlo en el navegador y en Node.js
+
+El navegador es el Entorno de Ejecucion de JavaScript. Es decir, es donde ejecutamos JavaScript y nos proporciona un motor para interpretar codigo JavaScript, tambien nos proporciona herramientas y facilidades para introducir codigo, depurar, etc
+
+El entorno de ejecucion de JavaScript que veremos despues de frontend. Va a ser Node.js, Express.js sera el framework que trabaja sobre este nuevo entorno de ejecucion.
 
 
-Un array es una lista ordenada de elementos, donde cada uno tiene una posicion o indice.
-Los arrays pueden conteneer cualquier tipo de datos (numeros, strings, booleanos, otros arrays, objetos, funciones, etc)
+Los entornos de ejecucion, sea el navegador o sea Node.js, nos proporcionan Objetos Globales.
+Estos son objetos que estan disponibles en todo el entorno de ejecucion sin necesidad de importarlos o declararlos explicitamente. Varian depende del entorno de ejecucion.
+Pero la idea central de los objetos globales es facilitarnos el acceso a ciertas funciones o valores predeterminados
 
 
-Un objeto es una coleccion de pares clave-valor.
-Las claves son cadenas que identifican cada valor, lo cual permite un acceso rapido y estructurado a los datos
-Los objetos son utiles cuando deseamos representar una entidad con multiples propiedades.
 
-Podemos acceder a un objeto a traves de 
-    - notacion de punto:    objeto.propiedad
-    - notacion de corchete: objeto["propiedad"]
+============================================
+    Objetos globales en el navegador
+============================================
 
-Los objetos pueden tener metodos, que son funciones almacenadas en una propiedad
+En el entorno del navegador, los objetos globales incluyen todos los objetos estandar de JavaScript (como Array, String, Object, etc), asi como todo un conjunto de objetos especificos para la interaccion con la pagina web y su entorno
 
 
-==================
-    Comparacion
-==================
-
-Uso principal
-    - Array: Lista ordenada de elementos
-    - Objeto: Coleccion pares clave-valor
+El objeto global principal en el entorno del navegador es window.
+Este objeto representa toda la ventana del navegador y actua como el contenedor global para todas las variables, funciones definidos en el ambito global y estna automaticamente disponibles como propiedaes del objeto window.
 
 
-Acceso a datos:
-    - Array: Por indice -> array[0]
-    - Objeto: Por clave -> objeto.clave / objeto["clave"]
+Objetos y metodos importantes del objeto window
 
-Metodos:
-    - Array: push(), pop(), forEach()
-    - Objetos: Metodos personalizados y funciones
+- document: Representa el DOM de la pagina web actual, permitiendo el acceso y la manipulacion de elementos HTML. El DOM es la representacion en memoria de una pagina HTML y gracias al DOM, podremos manipular la pagina web con JavaScript
 
-Iteracion
-    - Arrays: forEach(), map(), etc
-    - Objetos: for...in, Object.key(), Object.values(), Object.entries()
+
+- alert(), prompt(), confirm(): Metodos que permiten mostrar dialogos al usuario y recoger input
+
+
+- setTimeout() y setInterval(): Metodos para programar la ejecucion de codigo despues de un tiempo (setTimeout) o en intervalos regulares (setInterval)
+
+- location: Proporciona informacion sobre la URL actual de la pagina y permite redireccionar a otras URL
+
+- navigator: Proporciona informacion sobre el navegador, com la version, el agente de usuario y la geolocalizacion
+
+- console: Proporciona acceso a la consola del navegador para mostrar mensajes de depuracion
+
+- history: Proporciona acceso al historia de navegacion del navegador
+
+
+===================================
+    Objetos globales en Node.js
+===================================
+
+En Node.js, el entorno de ejecucion no tiene un objeto window como en los navegadores. En su lugar existen otros objetos globales diseñados para trabajar con servidores, archivos y otros aspectos del Sistema Operativo
+
+- process: Proporciona información y control sobre el proceso de ejecución de Node.js
+
+- __dirname y __filename: Variables globales que contienen la ruta al directorio actual y al archivo actual, respectivamente.
+
+- setTimeout y setInterval: Igual que en los navegadores, estos métodos permiten programar la ejecución de funciones de manera
+asincrónica.
+
+- console: Igual que en el navegador, proporciona acceso a la consola para depuracion y mensajes
 */
 
-// Array en JavaScript
-let frutas = ["pera", "banana", "pomelo"];
-console.log(frutas[0]); // Accedemos a la primera posicion, notacion 0
-console.log(frutas[2]); // Accedemos a la tercer posicion
+
+// Probando setTimeout y setInterval
+// setTimeout(() => console.log("Holi despues de 1 segundo"), 1000);
+// setInterval(() => console.log("Holi despues de 1 segundo"), 1000);
 
 
-// Creacion de un objeto literales
-let persona = {
-    nombre: "Miguel",
-    edad: 23,
-    ciudad: "Buenos Aires",
-    presentacion: function() {
-        // this hace referencia al objeto desde el cual se esta invocando el metodo
-        console.log(`Hola! me llamo ${this.nombre} y soy de ${this.ciudad}`);
+// location: Proporciona informacion sobre la URL actual de la pagina y permite redireccionar a otras URL
+console.log(window.location.href);
+
+
+// navigator: Proporciona informacion sobre el navegador, com la version, el agente de usuario y la geolocalizacion
+console.log(navigator.userAgent);
+console.log(navigator);
+
+
+// console: Proporciona acceso a la consola del navegador para mostrar mensajes de depuracion
+console.log(console);
+
+
+// history: Proporciona acceso al historia de navegacion del navegador
+console.log(history);
+
+
+
+/* ===================================
+    Almacenamiento de datos en JS
+======================================
+
+JavaScript proporciona varios tipos de estructuras para almacenar datos
+
+- Variables simples:    valores unicos como numeros, strings
+- Objetos:              para representar datos complejos con propiedades
+- Arrays:               Para almacenar una serie de elementos, idealmente del mismo tipo
+- Arrays de objetos:    Para manejar listas de elementos complejos que contienen multiples propiedades
+
+
+Cuando usar arrays?
+    - Para listas ordenadas de elementos individuales (lista nombres)
+
+
+Cuando usar objetos?
+    - Cuando deseamos representar una entidad unica con multiples atributos
+    - Cuando sabemos que no habra multiples instancias o copias de estos datos en la aplicacion
+    - Cuando necesitamos acceder a propiedades especificas mediante sus nombre
+
+
+Cuando usar arrays de objetos?
+    - Cuando necesitamos almacenar multiples instancias de una entidad o estructura de datos
+    - Cuando planeamos realizar operaciones sobre una lista de elementos, como iteraciones, filtrados o agrupaciones
+    - Si necesitamos aplicar metodos de arrays como map, filter, reduce, find, etc
+    - Ejs: listado de usuarios, inventario de productos, historial de registros, etc
+
+
+
+========================================================
+    Iteracion en arrays, objetos y arrays de objetos
+========================================================
+
+Iteracion de arrays: Arrays como una lista ordenada de elementos accesibles por indice
+
+Bucle for clasico
+
+    for (let i = 0; i < array.length; i++) {
+        console.log(array[i]);
     }
-};
 
-console.log(persona);
-console.table(persona);
+    - Maximo control, podemos usar break y continue. Muy eficiente
+    - Como desventajas, mas verboso (mas difil de leer)
 
 
-console.log(persona.nombre); // Miguel
-console.log(persona["ciudad"]); // Buenos Aires
-persona.presentacion();
+forEach()
 
-// Agregamos y eliminamos propiedades
-persona.preferencias = "Backend";
-delete persona.ciudad;
+    array.forEach((elemento, índice, arrayOriginal) => {
+        console.log(elemento, índice);
+    });
 
+    - Sintaxis limpia, no necesita contador
+    - Como desventajas, es mas lento y no se puede romper el bucle (break, continue)
 
 
-/* ======================================
-    Metodos de strings en JavaScript
-=======================================*/
+map()
+    const nuevosValores = array.map(elemento => elemento * 2);
 
-// length: devuelve la longitud del string
-console.log("Holis".length);
+    - Transforma cada elemento
+    - Retorna un nuevo array con los resultados
 
-let agite = "Aguante JavaScript vieja!";
-for (let i = 0; i < agite.length; i++) {
-    // console.log(agite[i]);
-}
 
-// charAt: Devuelve el caracter en la posicion especificada
-console.log("Holis".charAt(3));
+filter()
+    const filtrados = array.filter(elemento => elemento > 10);
 
-
-// concat: Concatena strings
-let agiteFinal = "No me importa nada";
-console.log(agite.concat(" ", agiteFinal));
-
-
-// includes: Devuelve true si el substring esta dentro del string
-console.log("JavaScript".includes("Script")); // Ojo porque es case sensitive
-
-
-// startsWith: Comprueba si el string comienza con el substring
-console.log("Hola mundo".startsWith("hola")); // false, es case sensitive tambien
-
-
-// endsWith: Comprueba si el string termina con el substring
-console.log("Hola mundo".endsWith("mundo"));
-
-
-// indexOf: Devuelve el indice de la PRIMERA aparicion en el substring
-console.log("banana".indexOf("a"));
-
-
-// lastIndexOf: Devuelve el indice de la ULTIMA aparicion del substring
-console.log("banana".lastIndexOf("a"));
-
-
-// replace: Reemplaza una parte del string
-console.log(agite.replace("JavaScript", "Megadeth"));
-
-
-// replaceAll: Reemplazar TODAS las apariciones
-console.log("1, 2, 3". replaceAll(", ",";"));
-
-
-// toLowerCase: Convierte a minusculas
-console.log("AGUANTE JAVASCRIPT".toLowerCase());
-
-
-// toUpperCase: Convierte a mayusculas
-console.log("holu! uwu".toUpperCase());
-
-
-// trim: Elimina espacios en blanco al principio y al final
-console.log("            holu            ".trim());
-
-
-// trimStart: Elimina espacios en blanco al principio
-console.log("            holu            ".trimStart());
-
-
-// trim: Elimina espacios en blanco al final
-console.log("            holu            ".trimEnd());
-
-
-// slice: Extrae parte del string
-console.log("JavaScript".slice(0, 4));
-console.log("JavaScript".slice(-3)); // slice tambien acepta negativo para los ultimos caracteres
-
-
-// substring: Similar a slice, pero no acepta negativos
-console.log("JavaScript".slice(4, 10));
-
-
-// substr -> Deprecado
-
-
-// split: Divide el string en un array
-console.log("hola".split(""));
-console.log("rojo, verde, azul".split(", "));
-
-
-// repeat: repite el string
-console.log("ji".repeat(3));
-
-
-// match: devuelve coincidencias con una expresion regular (REGEX)
-console.log("abc123".match(/[^0-9]/g)); // extrae los caracteres
-console.log("abc123".match(/\d/g)); // extrae los numeros
-
-
-
-/* ======================================
-    Metodos de arrays en JavaScript
-========================================*/
-
-let caracteres = ["a", "b", "c", "d"];
-
-// length: Devuelve la longitud del array
-console.log(caracteres.length); // 4
-
-for(let i = 0; i < caracteres.length; i++) {
-    console.log(caracteres[i]);   
-}
-
-
-// push: Agrega un elemento al FINAL del array
-let arr = [1, 2];
-console.log(arr);
-arr.push(3);
-
-
-// pop: Elimina el ultimo elemento y lo devuelve
-console.log(arr.pop());
-
-
-// unshift: Agrega un elemento al inicio del array
-arr.unshift(0);
-
-
-// shift: Elimina el primer elemento y lo devuelve
-console.log(arr.shift());
-
-
-// concat: Concatena arrays
-console.log(arr.concat([3, 4])); // No altera el array original
-let arr2 = [3, 4];
-let nuevoArr = arr.concat(arr2);
-console.log(nuevoArr);
-
-
-// join: Une los elementos en un string
-// https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/join
-// https://www.w3schools.com/jsref/jsref_join.asp
-let nuevoStr = [1, 2, 3].join("-");
-console.log(nuevoStr);
-
-
-// slice: Extrae una copia parcial del array
-console.log(nuevoArr.slice(1, 3));
-
-
-// splice: Modifica el array in situ, permite borrar y agregar
-/* 
-Guia referencia W3 Schools: https://www.w3schools.com/jsref/jsref_splice.asp
-
-cincoNums.splice(1, 2, "dos"); 
-
-- Primer parametro es la posicion en el array
-
-- Segundo parametro (opcional) es el numero de elementos a ser eliminados en esa posicion 
-
-    - podemos no eliminar nada, pondremos 0
-    - podemos eliminar el elemento en esa posicion, pondremos 1
-    - podemos eliminar dos elementos desde esa posicion, pondremos 2
-
-- Tercer parametro (opcional), el nuevo elemento a ser añadido en esa posicion
+    - Selecciona los elementos que cumplan una condicion
+    - Retorna un nuevo array con los elementos filtrados
 */
-const cincoNums = [1, 2, 3, 4, 5];
-console.log(cincoNums);
-cincoNums.splice(1, 2, "dos"); 
 
-// Ojo a la hora de realizar ciertas operaciones adentro de un console.log! -> splice y concat
+////////////////////////
+// Bucle for clasico //
+
+// Sumando elementos
+let numeros = [1, 2, 3, 4, 5];
+let suma = 0;
+
+for(let i = 0; i < numeros.length; i++) {
+    suma += numeros[i];
+}
+console.log(suma);
+
+// Buscar elemento
+const frutas = ["manzana", "banana", "naranja"];
+
+for (let i = 0; i < frutas.length; i++) {
+    if (frutas[i].startsWith("ban")) {
+        console.log(frutas[i]);
+        break;
+    }
+}
 
 
-// indexOf: Devuelve la PRIMERA posicion del elemento
-console.log([1, 2, 3].indexOf(2)); // Devuelve 1, porque preguntamos por la posicion del elemento 2 en el array
-// Nos indica, que el numero 2, esta en la posicion 1
+// Filtrando objetos
+// Lista ordenada de elementos del mismo tipo
+const productos = [
+    { id: 1, nombre: "laptop", precio: 1000 },
+    { id: 2, nombre: "mouse", precio: 20 },
+    { id: 3, nombre: "teclado", precio: 50 },
+    { id: 4, nombre: "tarjeta grafica", precio: 200 },
+    { id: 5, nombre: "monitor", precio: 100 },
+    { id: 6, nombre: "pendrive", precio: 10 }
+];
+
+console.log(productos.length); // 6
+console.log(productos[2]); // {id: 3, nombre: 'teclado', precio: 50}
+console.log(productos[1].precio); // 20
+
+let productosCaros = [];
+
+for (let i = 0; i < productos.length; i++) {
+    if (productos[i].precio > 100) {
+        productosCaros.push(productos[i]);
+    }
+}
+
+console.log(productosCaros);
 
 
-// lastIndexOf: Devuelve la ULTIMA posicion del elemento
-console.log([1, 2, 3, 2].lastIndexOf(2)); // 3, el ultimo numero 2 esta en la posicion 3
-// En caso de no encontrar nada, devuelve -1
+////////////////////
+// Bucle forEach //
+
+// Imprimos elementos
+let colores = ["rojo", "verde", "azul"];
+
+colores.forEach(color => console.log(color));
+
+
+// Modificar array externo
+// let numeros = [1, 2, 3, 4, 5];
+let numerosDobles = [];
+
+numeros.forEach(num => numerosDobles.push(num * 2));
+console.log(numerosDobles);
+
+
+// Actualizar propiedades
+let estudiantes = [
+    { nombre: "Gricel", nota: 10},
+    { nombre: "Francisco", nota: 9},
+    { nombre: "Mirko", nota: 8},
+    { nombre: "Xabi", nota: 2},
+    { nombre: "Leon", nota: 7},
+    { nombre: "Miguel", nota: 3}
+];
+
+console.log(estudiantes);
+
+/* Recordemos como se agregaban y eliminaban propiedades en un objeto
+
+persona.preferencias = "Backend"; // Agregamos la propiedad preferencias y un valor
+
+delete persona.ciudad; // Eliminamos la propiedad ciudad
+*/
+
+// Crearemos la propiedad aprobado para todos los alumnos que superen el 4
+estudiantes.forEach(estud => {
+
+    estud.aprobado = estud.nota >= 4;
+
+    /* Otra manera de resolver la instruccion de arriba
+
+    if (estud.nota >= 4) {
+        estud.aprobado = true;
+    } else {
+        estud.aprobado = false;
+    }
+    */
+});
+
+
+//////////
+// map //
+
+// Crear un array de cuadrados
+// let numeros = [1, 2, 3, 4, 5];
+
+let cuadrados = numeros.map(num => num * num);
+console.log(cuadrados);
+
+
+// Convertimos a string
+let edades = [23, 20, 33, 30, 25];
+let edadesStr = edades.map(edad => `Tengo ${edad} años`); // "tengo " + edad + " años"
+console.log(edadesStr);
+
+
+/* Extraer propiedades
+
+    let estudiantes = [
+        { nombre: "Gricel", nota: 10},
+        { nombre: "Francisco", nota: 9},
+        { nombre: "Mirko", nota: 8},
+        { nombre: "Xabi", nota: 2},
+        { nombre: "Leon", nota: 7},
+        { nombre: "Miguel", nota: 3}
+    ];*/
+
+let estudNombre = estudiantes.map(estud => estud.nombre);
+console.log(estudNombre);
+
+
+/* No usemos para nombres de variables caracteres especiales del idioma
+
+    - let año -> Nada recomendable
+    - let anio -> La mejor opcion
+
+    - Idealmente usaremos nombres en ingles 
+*/
+
+
+
+/////////////
+// filter //
+
+// Documentacion de filter de mdn para chusmear https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+
+// Filtrar numeros pares
+let masNumeros = [1, 2, 3, 4, 5, 6, 7, 8];
+
+let numerosPares = masNumeros.filter(num => num % 2 === 0);
+console.log(numerosPares);
+
+
+// Filtrar palabras largas
+let palabras = ["hola", "holiiita", "veciniiiiito", "chau"];
+
+let palabrasLargas = palabras.filter(palabra => palabra.length > 4);
+console.log(palabrasLargas);
+
+
+/* Filtrar por notas
+    let estudiantes = [
+        { nombre: "Gricel", nota: 10},
+        { nombre: "Francisco", nota: 9},
+        { nombre: "Mirko", nota: 8},
+        { nombre: "Xabi", nota: 2},
+        { nombre: "Leon", nota: 7},
+        { nombre: "Miguel", nota: 3}
+*/
+
+// const predicate = 2 > 1;
+let altosEstudiantes = estudiantes.filter(estudiante => estudiante.nota > 7);
+console.log(altosEstudiantes);
+
+
+
+
+
+// TO DO: Pendiente, almacenamiento persistente en el navegador
