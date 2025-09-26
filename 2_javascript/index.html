@@ -12,8 +12,41 @@
 </head>
 <body>
 
-    <h1>Titulo principal</h1>
+    <h1 id="titulo">Titulo principal</h1>
     <p>Aguante la division 132</p>
 
+    <p class="mensaje" id="primerParrafo">Primer parrafo</p>
+    <p class="mensaje">Segundo parrafo</p>
+
+    <p id="parrafo">Soy un parrafo que va a cambiar!</p>
+
+    <button id="boton">Soy un boton!</button>
+
+    <hr>
+
+    <button id="botonClickeable">Haceme click, capo</button>
+    <br> <br>
+    <label for="input">Escribi aca</label>
+    <input type="text" id="input">
+
+    <hr>
+
+    <div id="padre">
+        <button id="hijo">Boton</button>
+    </div>
+
+    <hr>
+
+    <form id="formulario" action="/action_page.php">
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname" value="John"><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname" value="Doe"><br><br>
+        <input type="submit" value="Submit">
+    </form> 
+
+    <hr>
+    <button id="mostrarLista">Mostrar lista</button>
+    <div id="contenedorLista"></div>
 </body>
 </html>

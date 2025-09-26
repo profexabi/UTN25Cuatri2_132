@@ -8,3 +8,8 @@ body {
     background-color: var(--gris-fondo);
     color: var(--blanco-fuente);
 }
+
+#padre {
+    border: 2px solid fuchsia;
+    padding: 10px;
+}
