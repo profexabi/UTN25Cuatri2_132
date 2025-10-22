@@ -1,5 +1,9 @@
 # UTN25Cuatri2_132 :rooster:
 
+## [Excel grupos Div 132 / 2025](https://docs.google.com/spreadsheets/d/1DC1XwCZ_a2tH1abXacndfXHBUEB-9mfx2KEZ2rl6MJI/edit?usp=sharing)
+    - Para el 29 de octubre, este grupo pasara a solo lectura y quienes falten seran asignados de manera automatica por los docentes
+
+
 # JavaScript :notebook:
 
 ## Recursos clase
@@ -12,6 +16,88 @@
 
 ---
 
+## Clases grabadas
+
+### [JavaScript VII 2a parte 22/10/25](https://youtu.be/iHoJdGzl1tM)
+
+
+---
+
+
+## Notas TP Integrador
+
+## Paso 1
+### Proyecto frontend
+- *Reutilizamos el 1er parcial pero consumiendo nuestra propia API Rest*
+
+- App front donde usuarios compran 2 tipos de producto
+
+- Al finalizar la compra, creamos un boton que diga "hacer compra" o "imprimir ticket"
+    - imprimir 1 ticket con la libreria Js PDF
+    - registramos 1 venta (POST para registrar una venta)
+
+#### **Explicacion del cliente**
+
+1. Pantalla de bienvenida donde se pide insertar nombre (y guardarlo en la sesion)
+
+2. Pantalla productos. 
+    - Visualizar tarjetas de productos -> datos, img y boton agregar a carrito
+    - Esta pantalla productos se ve gracias a que hacemos una peticion fetch a nuestra API Rest, [ejemplo](https://jsonplaceholder.typicode.com/users)
+
+3. Pantalla carrito. Listado de productos añadidos al carrito. Debe permitir agregar o quitar distintas cantidades
+
+4. Pantalla ticket. Confirmado el carrito (boton hacer compra o imprimir ticket)
+    - Imprimimos un ticket en pdf con [JS PDF](https://raw.githack.com/MrRio/jsPDF/master/docs/index.html)
+    - Se produce un POST a la tabla ventas (hora, cantidad de productos, precio total, etc)
+
+---
+
+## Paso 2
+
+#### BBDD MySQL con las respectivas tablas 
+
+### Proyecto backend
+- Una API Rest que va a estar conectada a la BBDD y va a devolver datos
+
+- Nuevas vistas HTML (EJS) -> Es el propio servidor el que va a generar las vistas y el HTML
+- Esta vista va a ser el panel de administracion o "backoffice" que nos permitira gestionar productos y usuarios
+
+
+#### **Explicacion del servidor**
+Solamente vamos a crear usuarios admins! los clientes no se loguean, solamente se registra en el ticket y en la venta el nombre que pusieran en la pantalla de bienvenida
+
+1. *Pantalla login que debe permitir ingresar correo y password* -> Conveniente dejar este paso para cuando esten hechas las pantallas
+
+2. Con este login exitoso, pantalla dashboard que posee las siguientes vistas asi como el nav para redirigir a las pantallas de alta, baja y modificacion de productos y usuarios
+
+    2.1 Listado de productos que trae todo el choclo de productos como nuestro parcial -> **GET**
+
+    2.2. Pantalla para obtener productos/usuarios por su id -> **GET by id**
+
+    2.3. Pantalla alta producto para cargar un nuevo producto son con un formulario que permita cargar sus datos y su imagen en url  -> **POST**
+
+    2.4. Recicla el form de get by id -> Pantalla modificar producto para modificar los datos de un producto a partir de su ID -> **PUT**
+
+    2.5 Recicla el form de get by id -> Pantalla para eliminar producto -> **DELETE**
+
+---
+
+## Paso 3
+Ya con la API Rest andando 
+
+### 3.1 Login basico con EJS y [bcrypt](https://www.npmjs.com/package/bcrypt)
+
+### 3.2 Subida de archivos con Multer
+
+### 3.3 Descarga de excel con las ventas
+
+### 3.4 Paginacion
+
+
+
+
+---
+
 ## Teoría y fundamentos web del backend
 
 #### 1. [Introductorio / Playlist de Programacion web de todocode](https://www.youtube.com/watch?v=lC6JOQLIgp0&list=PLQxX2eiEaqbxx6Ds5bd1F6LZJo7_OnZhV&index=3)
@@ -21,6 +107,47 @@
     - Que son las APIs
 
 #### 2. [Avanzado / Clase completa sobre protocolo HTTP y arquitectura cliente/servidor](https://www.youtube.com/watch?v=l6oF_RpBf64)
+
+
+#### Ejemplo práctico
+
+```js
+// Cliente (Navegador) -> Hace una peticion HTTP (HTTP Request)
+fetch("http://localhost:3000/productos")
+    .then(response => response.json())
+    .then(productos => {
+        // Mostrar productos en la pagina
+    });
+
+
+// Servidor (Node.js y Express.js) -> Recibe esta peticion HTTP Request y devuelve una respuesta HTTP respuesta
+app.get("/productos", async (req, res) => {
+    const productos = await connection.query("SELECT * FROM productos");
+    res.json(productos);
+})
+```
+
+---
+
+# Guia JavaScript
+
+## JavaScript VIII / JSON, asincronia, promesas, fetch, async/await y try/catch
+
+#### Que es una API Rest?
+Una API Rest es un estilo arquitectonico para diseñar servicios web que **permiten la comunicacion y transferencia de datos entre diferentes sistemas a traves de internet**
+
+- Se basa en el **protocolo HTTP** y por tanto utiliza metodos estandar como **GET, POST, PUT y DELETE** para realizar operaciones de creacion, lectura, actualizacion y eliminacion de recursos.
+
+- Cada **recurso** de la API Rest esta identificado por una **URL** unica 
+
+- Y las solicitudes y respuestas suelen intercambiarse **en formato JSON**, legible tanto para humanos como para maquinas
+
+
+En esencia, una API Rest actua como una interfaz que permite a aplicaciones externas aceder a datos o funcionalidades de manera controlada y predefinida, facilitando la integracion entre sistemas. Es ampliamente usada en servicios web, aplicaciones mobiles y plataformas en lanuibe, debido a su simplicidad y compatibilidad con multiples lenguajes de programacion
+```js
+
+```
+
 
 ---
 
@@ -272,8 +399,8 @@ fetch("https://jsonplaceholder.typicode.com/users")
 
 // Vamos a consumir otra API Rest con async/await, una sintaxis mas moderna para trabajar con promesas
 async function obtenerDatos() {
-    try {
 
+    try {
         
         // 1. Traigo el choclo en texto plano JSON y DETENGO la ejecucion del codigo hasta que esto se resuelva o de error
 
@@ -538,7 +665,243 @@ En resumen, los closures permiten mantener estado entre llamadas, encapsular dat
 */
 
 
-// TO DO: Mencionar web APIs y HOF
+/*===========================
+    High Order Functions
+=============================
+
+Una High Order Function o Funcion de Alto Nivel es una funcion que cumple al menos una de estas dos condiciones
+    1. Recibe una o mas funciones como argumentos (map, filter, reduce)
+    2. Devuelve una funcion como resultado
+
+
+Ventajas de las HOF
+
+    - Reduccion de codigo repetitivo
+    - Mayor legibilidad y expresividad
+    - Composicion funcional: podemos encadenar transformaciones como map().filter().reduce()
+*/
+
+console.log("Funciones de Alto Nivel");
+
+
+// Ejemplo 1: Recibe una funcion
+// let numeros = [1, 2, 3, 4, 5];
+
+const cuadrados = numeros.map(n => n* n);
+console.log(cuadrados);
+
+
+// Ejemplo 2: Devuelve una funcion
+function multiplicador(factor) {
+    return function (x) {
+        return x * factor;
+    }
+}
+
+const duplicar = multiplicador(2);
+console.log(duplicar(5));
+
+
+/* =================================
+    Relacion entre Callbacks y HOF
+====================================
+
+    - Callback es la funcion que se pasa como argumento
+    - HOF es la funcion que recibe o devuelve funciones
+    - Ambas estan relacionadas pero no son equivalentes: Un callback es usando dentro de una HOF, pero no todas la HOF usan callbacks explicitamente (porque pueden devolver funciones en lugar de recibirlas)
+
+
+
+=====================================
+    Desmenuzando el ejemplo de map
+=====================================
+
+    let numeros = [1, 2, 3, 4, 5];
+
+    const cuadrados = numeros.map(n => n* n);
+
+
+1. map es un metodo de array y tambien es una High Order Function (HOF)
+Se llama HOF porque recibe como argumento otra funcion
+
+2. Esa funcion que recibe se ejecuta una vez por cada elemento del array
+A esa funcion que recibe la llamamos callback
+
+
+El callback de esta funcion es
+    n => n * n
+
+Es una funcion flecha con parametro "n"
+Es el equivalente a escribirlo con function
+
+    function(n) {
+        return n * n
+    }
+
+
+Por dentro, map hace algo parecido a esto
+
+function map(array, callback) {
+    const nuevoArray = []
+    // Recordemos las formas que teniamos de hacer estos metodos a mano tanto con for clasico como con forEach
+}
+
+Lo que termina resultando es
+
+    - Iteracion 1 => 1 * 1 = 1
+    - Iteracion 2 => 2 * 2 = 4
+
+El callback en nuestro ejemplo es la funcion flecha 
+    n => n * n
+
+que map invoca internamente para cada elemento en el array
+*/
+
+
+// Ejemplo de HOF que acepta una funcion callback
+function highOrderFunction(callback) {
+    // Ejecuta x operaciones
+    console.log("Ejecutando la funcion de alto nivel..");
+
+    // Llama a la funcion callback
+    callback();
+}
+
+function funcionCallback() {
+    console.log("Ejecutando la funcion callback");
+}
+
+// Llamamos a la HOF con la funcion callback como argumento
+highOrderFunction(funcionCallback);
+
+
+// High Order Function comunes en JavaScript
+
+// forEach: Recorre todos los elementos de un array y ejecuta una funcion sobre cada uno
+numeros.forEach(function(num) {
+    console.log(num * 2);
+});
+
+// map: Crea un nuevo array aplicando una funcion a cada elemento del array original
+const alCuadrado = numeros.map(x => x ** 2);
+console.log(alCuadrado);
+
+// filter: Crea un nuevo array con los elementos que cumplen una condicion
+const numerosPares = numeros.filter(n => n % 2 === 0);
+console.log(numerosPares);
+
+
+
+/*====================
+    Web APIs
+======================
+
+API significa Application Programming Interface (Interfaz de Programacion de Aplicaciones).
+
+Una API basicamente es un conjunto de funciones y herramientas que se usan para interactuar con algo, como el navegador, el servidor, una libreria.
+
+
+Que es una Web API?
+
+- En el contexto del navegador, una Web API es una funcion o conjunto de funciones que el navegador nos entrega para que las usemos con JavaScript
+
+- JavaScript por si solo es un lenguaje de programacion muy basico. Pero cuando se ejecuta en un navegador, puede acceder a funcionalidades especiales que el navegador le proporciona como:
+
+    - Manipular el DOM: document.getElementById()
+
+    - Esperar un tiempo: setTimeout()
+
+    - Hacer peticiones HTTP: fetch()
+
+    - Trabajar con audio, video, GPS, etc
+
+
+Como se relaciona esto con JavaScript?
+
+    - JavaScript es el lenguaje
+    - Las Web APIs son funciones extra que el navegador le presta a JS para hacer cosas utiles
+    - JavaScript usa estas APIs, pero no las define
+
+
+
+
+==================================
+    Tipos de Web APIs comunes
+==================================
+
+
+Tipos de Web APIs comunes
+
+1. APIs del DOM (Document Object Model)
+- Permiten acceder y modificar el HTML y CSS de la pagina
+- Manipulacion de elementos, eventos, clases, estilos,etc
+
+    - document.querySelector()
+    - document.createElement()
+    - document.addEventListener()
+    - classList.add()
+
+
+2. APIs de Red
+- Permiten comunicarnos con servidores o cargar recursos
+- Peticiones HTTP, chats, notificaciones en tiempo real
+
+    - fetch() -> Para realizar solicitudes HTTP
+    - XMLHttpRequest -> Version mas antigua del fetch
+    - WebSocket -> Comunicacion en tiempo real (chats)
+    - EventSource -> Eventos Server-Sent (actualizaciones en tiempo real)
+
+
+3. APIs de almacenamiento
+- Guardar informacion en el navegador
+- Guardar preferencias, datos de sesion, apps sin conexion, ble
+
+    - localStorage()
+    - sessionStorage()
+    - Cookies (mediante document.cookie)
+    - IndexedDB*
+
+    * Qué es IndexedDB
+    https://es.javascript.info/indexeddb
+
+    IndexedDB es una API de JavaScript que permite el almacenamiento de grandes cantidades de datos estructurados en el navegador del usuario, funcionando como una base de datos NoSQL orientada a objetos  A diferencia de localStorage, que está limitado a pequeñas cantidades de datos, IndexedDB está diseñado para manejar volúmenes significativos de información, incluyendo archivos y blobs, y permite búsquedas de alto rendimiento mediante índices  Es una tecnología transaccional, lo que garantiza la integridad y consistencia de los datos durante operaciones como inserciones, actualizaciones y eliminaciones  Además, sigue la política de mismo origen, lo que significa que solo las páginas web del mismo dominio pueden acceder a los datos almacenados en una base de datos específica 
+
+
+4. Timers o temporizadores
+- Permiten ejecutar funciones luego de un cierto tiempo
+- Retrasos, animaciones, polling
+
+    - setTimeout()
+    - setInterval()
+    - clearTimeout() y clearInterval()
+
+
+5. APIs de Dispositivos y Multimedia
+- Interaccion con hardware o medios
+- Apps, mobiles, camara, permisos, grabaciones, notificaciones
+
+    - navigator.geolocation -> GPS
+    - MediaDevices.getUserMedia() -> Microfono y camara
+    - Notification -> Notificaciones del sistema
+    - Battery API, Clipboard API -> Para interactuar con la bateria, con el sistema de copiar-pegar
+
+
+6. APIs de Interfaz Grafica
+- Controlan animaciones, graficos y visualizacion
+- Juegos, visualizaciones, graficos dinamicos, etc
+
+    - Canvas API
+    - WebGL -> https://es.wikipedia.org/wiki/WebGL
+    - Fullscreen API
+    - Screen Orientation API
+
+
+En resumen:
+
+- JavaScript puro es simple
+- Pero el navegador le da superpoderes con las Web APIs
+- Estas APIs permiten que JavaScript haga cosas reales, como hablar con servidores, manipular la pagina, guardar datos, usar la camara, etc
+*/
 ```
 
 ---
@@ -2477,12 +2840,3 @@ console.log(e);
 ++e;
 console.log(e);
 ```
-
----
-
-# Guia JavaScript
-
-## JavaScript VIII / JSON, asincronia, promesas, fetch, async/await y try/catch
-
-
-
