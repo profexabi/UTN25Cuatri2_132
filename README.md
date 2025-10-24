@@ -4,8 +4,8 @@
     - Para el 29 de octubre, este grupo pasara a solo lectura y quienes falten seran asignados de manera automatica por los docentes
 
 ## Clases grabadas
-### [JavaScript VII 2a parte 22/10/25](https://youtu.be/iHoJdGzl1tM)
-### [JavaScript VIII 24/10/25]()
+### [JavaScript VII 2a parte - 22/10/25](https://youtu.be/iHoJdGzl1tM)
+### [JavaScript VIII y Node I - 24/10/25](https://youtu.be/iZpfY47iLIA)
 
 
 ---
