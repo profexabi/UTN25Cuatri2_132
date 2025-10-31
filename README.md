@@ -5,10 +5,26 @@
 
 ## Clases grabadas
 ### [JavaScript VII 2a parte - 22/10/25](https://youtu.be/iHoJdGzl1tM)
+
 ### [JavaScript VIII y Node I - 24/10/25](https://youtu.be/iZpfY47iLIA)
 
 
+### Clave mientras estan haciendo la tecnicatura
+
+- **PRIORIZAR la formacion autodidacta en los stacks mas solidos y estables en la industria**. .Net, .Springboot y Angular
+
+- **Linkedin building**, chusmeen en que consiste, bien armado, buen CV, AGREGAR RECRUITERS A ROLETE
+
+- Vayan a charlas, virtuales o presenciales de recruiters
+
+- Vayan PRESENCIALMENTE A TODO, busquen contactos, charlen cara a cara, charlen con quien les puede contratar, dejen su cv, tarjeta lo que sea, vendanse
+
+- CV bien armado, incorporando web propia deployada, portfolio 
+
+- Portfolio lindo y bien armado
+
 ---
+
 
 ## Teoría y fundamentos web del backend
 
