@@ -165,6 +165,13 @@ CORS (Cross-Origin Resource Sharing, o intercambio de recursos entre orígenes) 
 npm i cors
 ```
 
+- Importamos y usamos cors en nuestro `index.js`
+```js
+import cors from "cors";
+
+app.use(cors()); // Middleware basico que permite todas las solicitudes
+```
+
 ---
 
 
