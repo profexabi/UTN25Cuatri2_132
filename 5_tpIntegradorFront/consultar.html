@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/bamboo.css" type="text/css">
-    <title>Dashboard</title>
+    <title>Consultar</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -51,6 +51,7 @@
     <script>
         let getProducts_form = document.getElementById("getProducts-form");
         let listado_productos = document.getElementById("listado-productos");
+        let url = "http://localhost:3000/products";
 
 
         getProducts_form.addEventListener("submit", async (event) => {
@@ -72,6 +73,9 @@
             console.log(idProducto); // Ya extrajimos el valor del campo
 
             try {
+
+                console.log(`Realizamos una peticion GET a ${url}/${idProducto}`);
+                
                 // Hago el fetch a la url personalizada
                 let response = await fetch(`http://localhost:3000/products/${idProducto}`);
                 console.log(response);

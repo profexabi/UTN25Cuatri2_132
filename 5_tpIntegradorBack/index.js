@@ -13,7 +13,21 @@ import cors from "cors"; // Importamos cors para poder usar sus metodos y permit
 /*===================
     Middlewares
 ===================*/
+/* Los middlewares son simplemente funciones que se ejecutan entre la peticion (request -> req) y la respuesta (response -> res)
+
+Middleware de aplicacion: Es una funcion que se ejecuta en todas las rutas
+
+Middleware de ruta: Es una funcion que se ejecuta en alguna rutas
+*/
+
 app.use(cors()); // Middleware basico que permite todas las solicitudes
+
+// Middleware logger
+app.use((req, res, next) => {
+    console.log(`[${new Date().toLocaleString()}] ${req.method} ${req.url}`);
+
+    next();
+});
 
 /* Que es CORS?
 CORS, o Intercambio de Recursos de Origen Cruzado, es un mecanismo de seguridad implementado por los navegadores web que permite a una página web 
@@ -22,6 +36,12 @@ en un dominio distinto al de la página que la originó, y su propósito princip
 como el secuestro de sesión o el acceso no autorizado a datos sensibles  CORS funciona mediante la verificación de encabezados HTTP específicos, 
 como `Access-Control-Allow-Origin`, que el servidor debe incluir en su respuesta para indicar si está autorizado el acceso desde un origen determinado  
 Sin este permiso explícito, el navegador bloquea la solicitud para mantener la seguridad de la política del mismo origen*/
+
+/* Middleware para parsear la informacion de JSON a objetos JS en las peticiones POST
+
+El cuerpo de la solicitud, disponible en `req.body`, se utiliza comúnmente para recibir datos enviados en peticiones POST o PUT, aunque requiere middleware como `express.json()` para ser procesado correctamente
+*/
+app.use(express.json());
 
 
 /*===================
@@ -32,7 +52,7 @@ app.get("/", (req, res) => {
 });
 
 
-// Get all products -> Traer todos los productos
+// GET all products -> Traer todos los productos
 app.get("/products", async (req, res) => {
     try {
         const sql = "SELECT * FROM products";
@@ -59,8 +79,9 @@ app.get("/products", async (req, res) => {
 });
 
 
-// Get product by id -> Consultar producto por id
-app.get("/products/:id", async (req, res) => {
+// GET product by id -> Consultar producto por id
+app.get("/products/:id", async (req, res) => { 
+    // en el parametro tenemos los objetos Request (req) y Response (res)
     try {
         // Extraemos el valor id de la url
         // let id = req.params.id; // extraemos el 2 de /products/2
@@ -70,8 +91,6 @@ app.get("/products/:id", async (req, res) => {
         let sql = "SELECT * FROM products WHERE products.id = ?";
 
         const [rows] = await connection.query(sql, [id]);
-
-        console.log(rows);
 
         res.status(200).json({
             payload: rows
@@ -86,7 +105,40 @@ app.get("/products/:id", async (req, res) => {
             error: error.message
         })
     }
+});
+
+
+// POST -> Crear nuevo producto
+app.post("/products", async (req, res) => {
+    try {
+        // Extraemos e imprimimos los datos del body para ver si llegan correctamente
+        let { name, image, category, price } = req.body;
+        console.log(req.body);
+        console.log(`Nombre producto: ${name}`);
+
+        let sql = "INSERT INTO products (name, image, category, price) VALUES (?, ?, ?, ?)";
+
+        let [rows] = await connection.query(sql, [name, image, category, price]);
+        console.log(rows);
+
+        // Devolvemos una repuesta con codigo 201 Created
+        res.status(201).json({
+            message: "Producto creado con exito!",
+        });
+
+
+
+    } catch (error) {
+        console.log("Error al crear producto: ", error);
+
+        res.status(500).json({
+            message: "Error interno del servidor",
+            error: error.message
+        })
+    }
 })
+
+// TO DO, crear middleware logger (middleware de aplicacion) y validateID (middleware de ruta)
 
 
 

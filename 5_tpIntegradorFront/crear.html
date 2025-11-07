@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/bamboo.css" type="text/css">
-    <title>Dashboard</title>
+    <title>Crear</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -30,9 +30,108 @@
         </nav>
     </header>
     <main>
-        <h1>Lista de productos</h1>
+        <h1>Crear producto</h1>
+
+        <!-- A menos que enviemos este formulario con el envio nativo del formulario HTML, no necesitamos poner ni action ni method -->
+        <form id="altaProducts-form" class="products-form-amplio">
+
+            <label for="nameProd">Nombre</label>
+            <input type="text" name="name" id="nameProd" required>
+            <br>
+
+            <label for="imageProd">Imagen</label>
+            <input type="text" name="image" id="imageProd" required>
+            <br>
+
+            <label for="categoryProd">Categoria</label>
+            <select name="category" id="categoryProd" required>
+                <option value="food">comida</option>
+                <option value="drink">bebida</option>
+            </select>
+            <br>
+
+            <label for="priceProd">Precio</label>
+            <input type="number" name="price" id="priceProd" required>
+            <br>
+
+            <input type="submit" value="Crear producto">
+        </form>
+
         <hr>
         <div id="contenedor-productos"></div>
     </main>
+
+    <script>
+        let altaProducts_form = document.getElementById("altaProducts-form");
+        let url = "http://localhost:3000/products";
+
+        altaProducts_form.addEventListener("submit", event => {
+
+            event.preventDefault(); // Evitamos el envio por defecto del formulario
+
+            let formData = new FormData(event.target); // Obtenemos la data del formulario en un FormData
+            console.log(formData);
+            /*FormData(4) { 
+                name → "Manaos Pomelo", 
+                image → "https://live.staticflickr.com/65535/52470400378_52f5664294_m.jpg", 
+                category → "drink", 
+                price → "800" 
+            }*/
+
+            let data = Object.fromEntries(formData.entries()); // Parseamos esta data del form data en un objeto JS
+            console.log(data);
+            /*Object { 
+                name: "Manaos Pomelo", 
+                image: "https://live.staticflickr.com/65535/52470400378_52f5664294_m.jpg", 
+                category: "drink", 
+                price: "800" 
+            }
+            */
+
+            // Los datos se enviaran asi, como JSON, parseando nuestros valores de objeto JS
+            console.log(JSON.stringify(data)); // {"name":"Manaos Pomelo","image":"https://live.staticflickr.com/65535/52470400378_52f5664294_m.jpg","category":"drink","price":"800"}
+
+
+            // Le enviamos el objeto del formulario a una funcion que se encargara de hacer la peticion fetch
+            enviarProducto(data);
+        });
+
+
+        async function enviarProducto(data) {
+            console.table(data); // Recibimos correctamente los datos del formulario
+
+            try {
+                // let url = "http://localhost:3000/products"
+                let response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+                console.log(response);
+
+                // Procesamos la respuesta que nos devuelve
+                let result = await response.json();
+                console.log(result);
+
+                // Vamos a verificar si la conexion fue exitosa con un "200" OK o "201" Created
+                if(response.ok) {
+                    console.log(result.message);
+                    alert(result.message);
+
+                } else { // En caso de que haya otra respuesta distinta de ok
+                    console.error(result.message);
+                    alert(result.message);
+                }
+
+
+            } catch (error) {
+                console.error("Error al enviar los datos: ", error);
+                alert("Error al procesar la solicitud");
+            }
+
+        }
+    </script>
 </body>
 </html>

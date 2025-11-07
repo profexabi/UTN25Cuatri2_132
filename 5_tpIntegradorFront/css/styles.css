@@ -86,3 +86,11 @@ nav ul {
     height: 110px;
     justify-content: space-between;
 }
+
+.products-form-amplio {
+    width: 50%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
