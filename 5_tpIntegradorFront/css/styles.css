@@ -22,6 +22,7 @@ nav ul {
     justify-content: space-between;
 }
 
+
 /*================
     main
 ================*/
@@ -49,26 +50,22 @@ nav ul {
 }
 
 .card-producto img {
-    width: 55px;
+    width: 65px;
 }
 
 
-#lista-productos {
+#listado-productos {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
 }
 
 .li-listados {
-    font-size: 14px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    width: 70%;
 }
 
 .li-listados img {
-    width: 60px;
+    width: 65px;
 }
 
 .li-listados p, .li-listados img {
@@ -81,6 +78,11 @@ nav ul {
     align-items: center;
 }
 
-#getProduct-form {
+.products-form {
+    width: 35%;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 110px;
+    justify-content: space-between;
 }

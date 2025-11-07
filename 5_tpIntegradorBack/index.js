@@ -32,6 +32,7 @@ app.get("/", (req, res) => {
 });
 
 
+// Get all products -> Traer todos los productos
 app.get("/products", async (req, res) => {
     try {
         const sql = "SELECT * FROM products";
@@ -40,7 +41,8 @@ app.get("/products", async (req, res) => {
         const [rows, fields] = await connection.query(sql);
 
         res.status(200).json({
-            payload: rows
+            payload: rows,
+            message: "Productos encontrados"
         });
 
         /* El término "payload" en el contexto de bases de datos se refiere 
@@ -55,6 +57,36 @@ app.get("/products", async (req, res) => {
         });
     }
 });
+
+
+// Get product by id -> Consultar producto por id
+app.get("/products/:id", async (req, res) => {
+    try {
+        // Extraemos el valor id de la url
+        // let id = req.params.id; // extraemos el 2 de /products/2
+        let { id } = req.params;
+
+        // ? son placeholders
+        let sql = "SELECT * FROM products WHERE products.id = ?";
+
+        const [rows] = await connection.query(sql, [id]);
+
+        console.log(rows);
+
+        res.status(200).json({
+            payload: rows
+        });
+
+
+    } catch (error) {
+        console.log("Error obteniendo producto por id: ", error);
+
+        res.status(500).json({
+            message: "Error interno del servidor",
+            error: error.message
+        })
+    }
+})
 
 
 
