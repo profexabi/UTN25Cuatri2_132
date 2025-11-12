@@ -37,7 +37,7 @@
         <form id="getProducts-form" class="products-form">
 
             <label for="idProd">Id del producto</label>
-            <input type="number" name="id" id="idProd" required>
+            <input type="number" name="id" id="idProd" required >
 
             <input type="submit" value="Consultar producto">
         </form>
@@ -58,6 +58,8 @@
             
             event.preventDefault(); // Prevenimos el envio por defecto del formulario
 
+            // Optimizacion, validar con un REGEX y limpiar informacion
+            
             // event.target -> trae todo el formulario HTML al que se le asigno el evento
             //console.log(event.target)
 
@@ -81,14 +83,24 @@
                 console.log(response);
 
                 // Proceso los datos que me devuelve el servidor
-                let datos = await response.json();
-                console.log(datos);
+                let result = await response.json();
+                console.log(result);
 
-                // Extraigo el producto que devuelve payload
-                let producto = datos.payload[0]; // Apuntamos a la respuesta, vamos a payload que trae el array con el objeto y extraemos el primer y unico elemento
+                if(response.ok) {
+                    // Extraigo el producto que devuelve payload
+                    let producto = result.payload[0]; // Apuntamos a la respuesta, vamos a payload que trae el array con el objeto y extraemos el primer y unico elemento
+    
+                    // Le pasamos el producto a una funcion que lo renderice en la pantalla
+                    mostrarProducto(producto); 
 
-                // Le pasamos el producto a una funcion que lo renderice en la pantalla
-                mostrarProducto(producto); 
+                } else {
+                    // alert(result.message);
+                    console.error(result.message)
+
+                    // Llamamos a la funcion que imprime un mensaje de error
+                    mostrarError(result.message);
+                }
+
 
             } catch (error) {
                 console.error("Error: ", error);
@@ -113,6 +125,18 @@
                 `;
 
             listado_productos.innerHTML = htmlProducto;
+        }
+
+
+        function mostrarError(message) {
+            listado_productos.innerHTML = `
+                <li class="mensaje-error">
+                    <p>
+                        <strong>Error:</strong>
+                        <span>${message}</span>
+                    </p>
+                </li>
+            `;
         }
     </script>
 </body>

@@ -24,6 +24,13 @@ En resumen, REST es la arquitectura, y RESTful es la aplicación de esa arquitec
 ---
 
 
+### [Importancia de las validaciones en el form, javascript y en el servidor](https://pbs.twimg.com/media/DpvnESsVsAA2kdv.jpg)
+
+### [Meme 2](https://www.google.com/imgres?q=meme%20cybersecurity%20door&imgurl=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FFKeyAdrWQAEmVTG.jpg&imgrefurl=https%3A%2F%2Fx.com%2FSecctrl2%2Fstatus%2F1488353924566421508&docid=GQhtkEuNBQ07GM&tbnid=h2PwhzKM3CiYQM&vet=12ahUKEwjf--G37-yQAxWmBrkGHYQRG2gQM3oECDwQAA..i&w=1080&h=1065&hcb=2&ved=2ahUKEwjf--G37-yQAxWmBrkGHYQRG2gQM3oECDwQAA&authuser=3)
+
+---
+
+
 ## Como se envian los datos de los formularios en html?
 Tipos de Datos en Formularios HTML
 
