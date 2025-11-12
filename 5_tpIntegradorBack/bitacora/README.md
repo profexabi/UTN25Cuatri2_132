@@ -23,6 +23,22 @@ En resumen, REST es la arquitectura, y RESTful es la aplicación de esa arquitec
 
 ---
 
+## Que es el middleware `Router`?
+
+En Express.js, un Router es una instancia aislada de middleware y rutas que se comporta como una miniaplicación independiente, también conocida como una "miniapp"  **Permite crear manejadores de rutas montables y modulares, facilitando la organización y estructuración del código, especialmente en aplicaciones grandes y complejas**  
+
+**Al igual que la instancia principal de Express (app), un Router puede utilizar métodos como `get`, `post`, `put`, `delete`, y otros para definir rutas HTTP específicas**  Además, puede incluir middleware personalizado, manejar parámetros de ruta mediante `router.param()`, y utilizar `router.route()` para definir múltiples métodos HTTP en una sola ruta, evitando errores de escritura 
+
+**El Router se crea con `express.Router()` y puede ser montado en una aplicación principal mediante `app.use()` con un prefijo de ruta**, lo que permite agrupar rutas relacionadas bajo un mismo camino, como `/usuarios` o `/wiki`  Esto mejora la modularidad, la reutilización del código y la separación de responsabilidades  Las funciones de middleware definidas en un Router solo se ejecutan para las rutas que pertenecen a ese Router, y no se heredan a aplicaciones o routers secundarios  El orden de los middleware y rutas dentro del Router es crucial, ya que se ejecutan secuencialmente de arriba hacia abajo 
+
+
+#### Y por que se considera una mini aplicacion?
+
+Express Router se considera una «mini aplicación» porque es una instancia aislada de middleware y funcionalidad de enrutamiento, capaz de manejar tanto el middleware como las definiciones de rutas de forma independiente.  Funciona como un sistema autónomo que se puede montar dentro de una aplicación Express más grande, lo que permite a los desarrolladores modularizar las rutas y el middleware en archivos o componentes separados.  Este diseño modular permite la creación de controladores de rutas reutilizables, como los destinados a funciones específicas, como la gestión de usuarios o los servicios de calendario, que pueden integrarse fácilmente en la aplicación principal mediante app.use().  Dado que un enrutador se comporta como un middleware en sí mismo, puede utilizarse como argumento en app.use() o dentro de otros enrutadores, lo que refuerza aún más su función como miniaplicación independiente. 
+
+
+---
+
 
 ### [Importancia de las validaciones en el form, javascript y en el servidor](https://pbs.twimg.com/media/DpvnESsVsAA2kdv.jpg)
 
