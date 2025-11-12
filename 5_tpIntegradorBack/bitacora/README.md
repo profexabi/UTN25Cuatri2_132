@@ -1,5 +1,29 @@
 # Glosario de terminos
 
+## Conceptos fundamentales
+
+- Un **endpoint** es una URL especifica a la que una aplicacion cliente envia una solicitud para acceder a una funcionalidad o recurso particular ofrecido por una API del servidor, actuando como el punto final (end point) de una conexion API
+
+- Una **ruta** se refiere a la estructura de la URL que determina como se procesa una solicitud, la ruta define la direccion a la que se envia la solicitud, mientras que el endpoint es la UBICACION EXACTA donde se procesa esa solicitud
+
+- Una **API Rest** es el conjunto de reglas y funciones que nos permite hacer un puente para conectar dos aplicaciones. Le decimos REST, que es un tipo de API, porque se basa en el protocolo HTTP y usa JSON
+
+
+---
+
+
+## Diferencia entre REST y RESTful
+
+REST (Representational State Transfer) es un estilo de arquitectura de software que se basa en los principios del protocolo HTTP para facilitar la comunicación entre sistemas, especialmente en entornos de red como Internet Este enfoque define cómo deben diseñarse los servicios web para que sean escalables, independientes y eficientes, con características clave como la separación entre cliente y servidor, la ausencia de estado en las solicitudes y el uso de recursos identificados por URI
+
+Por otro lado, RESTful se refiere a un servicio web o API que implementa efectivamente los principios y restricciones de la arquitectura REST En otras palabras, una API RESTful es una implementación concreta que sigue las reglas de REST, como el uso adecuado de los métodos HTTP (GET, POST, PUT, DELETE) para manipular recursos, la representación de estos recursos mediante formatos como JSON o XML, y la comunicación sin estado Aunque a menudo se usan como sinónimos, REST es el concepto teórico o arquitectónico, mientras que RESTful describe la realización práctica de ese concepto
+
+En resumen, REST es la arquitectura, y RESTful es la aplicación de esa arquitectura en servicios reales Una API REST se refiere al estándar o interfaz definida por estos principios, mientras que un servicio web RESTful es la implementación que cumple con esos estándares, por ejemplo, utilizando métodos HTTP apropiados y recursos bien definidos
+
+
+---
+
+
 ## Como se envian los datos de los formularios en html?
 Tipos de Datos en Formularios HTML
 
@@ -24,6 +48,7 @@ const app = express();
 // Analizar datos de formularios codificados en URL
 app.use(express.urlencoded({ extended: true }));
 ```
+
 
 ---
 
@@ -63,6 +88,7 @@ This approach is the standard and recommended method for handling form submissio
 
 
 ## Que es CORS?
+
 CORS, o Intercambio de Recursos de Origen Cruzado, es un mecanismo de seguridad implementado por los navegadores web que permite a una página web 
 solicitar recursos desde un dominio diferente al del origen actual
 

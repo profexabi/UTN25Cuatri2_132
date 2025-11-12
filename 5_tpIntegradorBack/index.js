@@ -4,10 +4,10 @@
 import express from "express";
 const app = express();
 
-import environments from "./src/api/config/environments.js";
+import environments from "./src/api/config/environments.js"; // Traemos las variables de entorno para extraer el puerto
 const PORT = environments.port;
 
-import connection from "./src/api/database/db.js";
+import connection from "./src/api/database/db.js"; // Traemos la conexion a la BBDD
 import cors from "cors"; // Importamos cors para poder usar sus metodos y permitir solicitudes de otras aplicaciones
 
 /*===================
@@ -25,7 +25,6 @@ app.use(cors()); // Middleware basico que permite todas las solicitudes
 // Middleware logger
 app.use((req, res, next) => {
     console.log(`[${new Date().toLocaleString()}] ${req.method} ${req.url}`);
-
     next();
 });
 
@@ -47,13 +46,14 @@ app.use(express.json());
 /*===================
     Endpoints
 ===================*/
+
 app.get("/", (req, res) => {
     res.send("TP Integrador Div 132");
 });
 
 
 // GET all products -> Traer todos los productos
-app.get("/products", async (req, res) => {
+app.get("/api/products", async (req, res) => {
     try {
         const sql = "SELECT * FROM products";
 
@@ -80,7 +80,7 @@ app.get("/products", async (req, res) => {
 
 
 // GET product by id -> Consultar producto por id
-app.get("/products/:id", async (req, res) => { 
+app.get("/api/products/:id", async (req, res) => { 
     // en el parametro tenemos los objetos Request (req) y Response (res)
     try {
         // Extraemos el valor id de la url
@@ -109,7 +109,7 @@ app.get("/products/:id", async (req, res) => {
 
 
 // POST -> Crear nuevo producto
-app.post("/products", async (req, res) => {
+app.post("/api/products", async (req, res) => {
     try {
         // Extraemos e imprimimos los datos del body para ver si llegan correctamente
         let { name, image, category, price } = req.body;
@@ -126,8 +126,6 @@ app.post("/products", async (req, res) => {
             message: "Producto creado con exito!",
         });
 
-
-
     } catch (error) {
         console.log("Error al crear producto: ", error);
 
@@ -136,7 +134,14 @@ app.post("/products", async (req, res) => {
             error: error.message
         })
     }
-})
+});
+
+
+
+// PUT-> Actualizar producto
+app.put("/api/products", async (req, res) => {
+
+});
 
 // TO DO, crear middleware logger (middleware de aplicacion) y validateID (middleware de ruta)
 

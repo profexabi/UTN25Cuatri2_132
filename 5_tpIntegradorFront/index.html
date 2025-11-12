@@ -40,11 +40,11 @@
     <script>
         // Seleccionamos el elemento al que le vamos a inyectar el HTML
         let contenedorProductos = document.getElementById("contenedor-productos");
-        const url = "http://localhost:3000/products"; // Guardamos en una variable la url de nuestro endpoint
+        const url = "http://localhost:3000/api/products"; // Guardamos en una variable la url de nuestro endpoint
 
         async function obtenerProductos() {
             try {
-                let respuesta = await fetch(url); // Hacemos una peticion a nuestro nuevo endpoint en http://localhost:3000/products
+                let respuesta = await fetch(url); // Hacemos una peticion a nuestro nuevo endpoint en http://localhost:3000/api/products
 
                 let data = await respuesta.json();
 

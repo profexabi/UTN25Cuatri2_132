@@ -73,7 +73,7 @@
 
             try {
                 // Hago el fetch a la url personalizada
-                let response = await fetch(`http://localhost:3000/products/${idProducto}`);
+                let response = await fetch(`http://localhost:3000/api/products/${idProducto}`);
                 console.log(response);
 
                 // Proceso los datos que me devuelve el servidor
@@ -105,6 +105,9 @@
                 <li class="li-listados">
                     <img src="${producto.image}" alt="${producto.name}" class="img-listados">
                     <p>Id: ${producto.id}/ Nombre: ${producto.name}/ <strong>Precio: $${producto.price}</strong></p>
+                </li>
+                <li class="li-botonera">
+                    <input type="button" id="deleteProduct_button" value="Eliminar producto">
                 </li>
                 `;
 

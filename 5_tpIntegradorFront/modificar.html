@@ -46,11 +46,15 @@
         <div id="contenedor-productos">
             <ul id="listado-productos"></ul>
         </div>
+
+        <!-- Contenedor para volcarle el HTML del nuevo formulario modificar -->
+        <div id="contenedor-formulario"></div>
     </main>
 
     <script>
         let getProducts_form = document.getElementById("getProducts-form");
         let listado_productos = document.getElementById("listado-productos");
+        let contenedor_formulario = document.getElementById("contenedor-formulario");
 
 
         getProducts_form.addEventListener("submit", async (event) => {
@@ -73,7 +77,7 @@
 
             try {
                 // Hago el fetch a la url personalizada
-                let response = await fetch(`http://localhost:3000/products/${idProducto}`);
+                let response = await fetch(`http://localhost:3000/api/products/${idProducto}`);
                 console.log(response);
 
                 // Proceso los datos que me devuelve el servidor
@@ -99,16 +103,73 @@
         });
 
         function mostrarProducto(producto) {
-            console.table(producto); // El producto se recibe correctamente
+            // console.table(producto); // El producto se recibe correctamente
 
             let htmlProducto = `
                 <li class="li-listados">
                     <img src="${producto.image}" alt="${producto.name}" class="img-listados">
                     <p>Id: ${producto.id}/ Nombre: ${producto.name}/ <strong>Precio: $${producto.price}</strong></p>
                 </li>
+                <li class="li-botonera">
+                    <input type="button" id="updateProduct_button" value="Actualizar producto">
+                </li>
                 `;
 
             listado_productos.innerHTML = htmlProducto;
+
+            let updateProduct_button = document.getElementById("updateProduct_button");
+
+            updateProduct_button.addEventListener("click", event => {
+                crearFormularioPut(event, producto);
+            });
+        }
+
+
+        function crearFormularioPut(event, producto) {
+
+            event.stopPropagation(); // Evitamos la propagacion de eventos
+            console.table(producto); // Recibimos el producto para llenar los valores del formulario
+
+            let formularioPutHtml = `
+                <form id="updateProducts-form" class="products-form-amplio">
+
+                    <label for="nameProd">Nombre</label>
+                    <input type="text" name="name" id="nameProd" value="${producto.name}" required>
+                    <br>
+
+                    <label for="imageProd">Imagen</label>
+                    <input type="text" name="image" id="imageProd" value="${producto.image}" required>
+                    <br>
+
+                    <label for="categoryProd">Categoria</label>
+                    <select name="category" id="categoryProd" required>
+                        <option value="food">comida</option>
+                        <option value="drink">bebida</option>
+                    </select>
+                    <br>
+
+                    <label for="priceProd">Precio</label>
+                    <input type="number" name="price" id="priceProd" value="${producto.price}" required>
+                    <br>
+
+                    <input type="submit" value="Actualizar producto">
+                </form>
+            `;
+
+            contenedor_formulario.innerHTML = formularioPutHtml;
+
+            let updateProducts_form = document.getElementById("updateProducts-form");
+
+            updateProducts_form.addEventListener("submit", event => {
+                actualizarProducto(event)
+            });
+        }
+
+
+        function actualizarProducto(event) {
+            event.preventDefault();
+
+            alert("test");
         }
     </script>
 </body>
