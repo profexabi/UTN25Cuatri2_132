@@ -133,6 +133,8 @@
             let formularioPutHtml = `
                 <form id="updateProducts-form" class="products-form-amplio">
 
+                    <input type="hidden" name="id" value="${producto.id}">
+
                     <label for="nameProd">Nombre</label>
                     <input type="text" name="name" id="nameProd" value="${producto.name}" required>
                     <br>
@@ -152,6 +154,8 @@
                     <input type="number" name="price" id="priceProd" value="${producto.price}" required>
                     <br>
 
+                    <input type="hidden" name="active" value="${producto.active}">
+
                     <input type="submit" value="Actualizar producto">
                 </form>
             `;
@@ -166,10 +170,51 @@
         }
 
 
-        function actualizarProducto(event) {
+        async function actualizarProducto(event) {
             event.preventDefault();
 
-            alert("test");
+            let url = "http://localhost:3000/api/products";
+            // console.log(event.target); // event.target se refiere al formulario que activo el evento
+            
+            let formData = new FormData(event.target); // Guardamos los datos en un objeto FormData
+            console.log(formData);
+
+            let data = Object.fromEntries(formData.entries()); // Transformamos el objeto FormData en un objeto JS
+            console.log(data);
+
+            try {
+                let response = await fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                console.log(response);
+
+                let result = await response.json(); 
+
+                // Si la response que hacemos, devuelve OK, quiere decir que la peticion fue exitosa y pasaremos a hacer lo siguiente
+                if(response.ok) { 
+                    console.log(result.message);
+                    alert(result.message);
+
+                    // Vaciamos el formulario y el listado
+                    listado_productos.innerHTML = "";
+                    contenedor_formulario.innerHTML = "";
+
+                } else {
+                    console.error("Error: ", error.message);
+                    alert(error.message);
+                }
+
+            } catch (error) {
+                console.error("Error al enviar los datos: ", error);
+                alert("Error al procesar la solicitud");
+            }
+
+
         }
     </script>
 </body>
