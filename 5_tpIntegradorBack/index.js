@@ -21,10 +21,6 @@ import { productRoutes } from "./src/api/routes/index.js";
 
 
 app.use(cors()); // Middleware basico que permite todas las solicitudes
-
-// Middleware logger
-app.use(loggerUrl);
-
 /* Que es CORS?
 CORS, o Intercambio de Recursos de Origen Cruzado, es un mecanismo de seguridad implementado por los navegadores web que permite a una página web 
 solicitar recursos desde un dominio diferente al del origen actual  Este mecanismo se activa cuando una solicitud HTTP se realiza a un recurso 
@@ -37,6 +33,10 @@ Sin este permiso explícito, el navegador bloquea la solicitud para mantener la 
 
 El cuerpo de la solicitud, disponible en `req.body`, se utiliza comúnmente para recibir datos enviados en peticiones POST o PUT, aunque requiere middleware como `express.json()` para ser procesado correctamente
 */
+
+// Middleware logger
+app.use(loggerUrl);
+
 app.use(express.json()); // Middleware que convierte los datos "application/json" que nos proporciona la cabecera (header) de las solicitudes POST y PUT, los pasa de json a objetos JS
 
 
@@ -57,7 +57,7 @@ app.get("/dashboard", (req, res) => {
 */
 
 // Ahora las rutas las gestiona el middleware Router
-app.use("/api/products", productRoutes)
+app.use("/api/products", productRoutes);
 
 
 
