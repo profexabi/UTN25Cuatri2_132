@@ -30,7 +30,19 @@ const validateId = (req, res, next) => {
     next(); // Continuar al siguiente middleware (si lo hay) o con la respuesta
 }
 
+
+// Middleware para chequear si existe una sesion creada, si no, redirigir a login
+const requireLogin = (req, res, next) => {
+
+    if(!req.session.user) {
+        return res.redirect("/login");
+    }
+   
+    next();
+}
+
 export {
     loggerUrl,
-    validateId
+    validateId,
+    requireLogin
 }
